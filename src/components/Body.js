@@ -17,11 +17,12 @@ const Body = () => {
     json = await data.json();
     console.log(
       "api data ",
-      json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle
+        ?.restaurants[0].info
     );
 
     setRestData(
-      json?.data?.cards[5]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[2]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
 
     console.log("updated data ", restData);
@@ -38,8 +39,11 @@ const Body = () => {
         {restData.map((item) => (
           <RasturantCard
             key={item.info.id}
-            resname="KFC Food"
-            cuisine="Burger, Fries"
+            resname={item.info.name}
+            cuisine={item.info.cuisines}
+            avgRating={item.info.avgRating}
+            slaString={item.info.sla.slaString}
+            cloudinaryImageId={item.info.cloudinaryImageId}
           />
         ))}
       </div>
