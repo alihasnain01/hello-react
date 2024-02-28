@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import RasturantCard from "./ResturantCard";
 import Shimmer from "./Shimmer";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
   const [restData, setRestData] = useState([]);
@@ -23,6 +24,12 @@ const Body = () => {
 
     console.log("updated data ", restData);
   };
+
+  const onlineStatus = useOnlineStatus();
+
+  if (!onlineStatus) {
+    return <h1>Please check your internet connection</h1>
+  }
 
   if (restData.length === 0) {
     return <Shimmer />;
