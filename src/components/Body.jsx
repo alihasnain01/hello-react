@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import RasturantCard from "./ResturantCard";
 import Shimmer from "./Shimmer";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import { Link } from "react-router-dom";
 
 const Body = () => {
   const [restData, setRestData] = useState([]);
@@ -17,12 +18,13 @@ const Body = () => {
 
     json = await data.json();
     console.log("api data ", json?.data);
+    console.log("single restraurant ", json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants[0].info);
+
 
     setRestData(
       json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
 
-    console.log("updated data ", restData);
   };
 
   const onlineStatus = useOnlineStatus();
@@ -37,17 +39,16 @@ const Body = () => {
 
   return (
     <div className="body">
-      <div className="search"> Search </div>
-      <div className="res-container">
+      <div className="flex space-x-2 m-5 items-center px-10">
+        <input type="text" placeholder="search" className="border rounded-md p-2" />
+        <div className="border rounded-md p-2 bg-green-500 hover:bg-white hover:border-green-500 hover:cursor-pointer"> Search </div>
+      </div>
+      <Link>Resturants</Link>
+      <div className=" flex flex-wrap">
         {restData.map((item) => (
-          <RasturantCard
-            key={item.info.id}
-            resname={item.info.name}
-            cuisine={item.info.cuisines}
-            avgRating={item.info.avgRating}
-            slaString={item.info.sla.slaString}
-            cloudinaryImageId={item.info.cloudinaryImageId}
-          />
+          <Link to={`/resturants/${item.info.id}`} key={item.info.id}>
+            <RasturantCard resData={item.info} />
+          </Link>
         ))}
       </div>
     </div>

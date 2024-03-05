@@ -1,18 +1,19 @@
 const RasturantCard = (props) => {
+  const { resData } = props;
   return (
-    <div className="res-card" style={{ backgroundColor: "#f0f0f0" }}>
+    <div className="border rounded-lg bg-gray-50 p-2" >
       <img
         alt="img"
         className="res-logo"
         src={
           "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" +
-          props.cloudinaryImageId
+          resData.cloudinaryImageId
         }
       />
-      <h3> {props.resname} </h3>
-      <p> {props.cuisine.join(", ", " ")} </p>
-      <h4>{props.avgRating} rating </h4>
-      <h4> {props.slaString} </h4>
+      <h3> {resData.name} </h3>
+      <p> {resData.cuisines.join(", ", " ")} </p>
+      <h4>{resData.avgRating} rating </h4>
+      <h4> {resData.sla.slaString} </h4>
     </div>
   );
 };
