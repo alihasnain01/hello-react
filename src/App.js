@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./components/Header";
 import Body from "./components/Body";
@@ -7,6 +7,7 @@ import Contact from "./components/Contact";
 import Error from "./components/Error";
 import ResturantMenu from "./components/ResturantMenu";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import UserContext from "./utils/UserContext";
 
 // ceating HTML element using React const parent = React.createElement('div', {
 // id: "parent" }, [React.createElement('div', { id: "child1" }, [
@@ -21,11 +22,14 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 // <Title />     <h1> First functional component </h1>{" "}   </div> );
 
 const AppLayout = () => {
+  const [userName, setUserName] = useState("Ali");
   return (
-    <div className="app">
-      <Header />
-      <Outlet />
-    </div>
+    <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+      <div className="app">
+        <Header />
+        <Outlet />
+      </div>
+    </UserContext.Provider>
   );
 };
 

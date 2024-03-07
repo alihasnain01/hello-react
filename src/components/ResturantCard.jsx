@@ -1,7 +1,7 @@
 const RasturantCard = (props) => {
   const { resData } = props;
   return (
-    <div className="border rounded-lg bg-gray-50 p-2" >
+    <div className="border rounded-lg bg-gray-50 p-2 w-48" >
       <img
         alt="img"
         className="res-logo"

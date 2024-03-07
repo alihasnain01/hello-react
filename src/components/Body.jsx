@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import RasturantCard from "./ResturantCard";
 import Shimmer from "./Shimmer";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import { Link } from "react-router-dom";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
   const [restData, setRestData] = useState([]);
@@ -28,6 +29,7 @@ const Body = () => {
   };
 
   const onlineStatus = useOnlineStatus();
+  const { loggedInUser, setUserName } = useContext(UserContext);
 
   if (!onlineStatus) {
     return <h1>Please check your internet connection</h1>
@@ -42,6 +44,9 @@ const Body = () => {
       <div className="flex space-x-2 m-5 items-center px-10">
         <input type="text" placeholder="search" className="border rounded-md p-2" />
         <div className="border rounded-md p-2 bg-green-500 hover:bg-white hover:border-green-500 hover:cursor-pointer"> Search </div>
+        <div>
+          <input type="text" className="border rounded-md p-2" value={loggedInUser} onChange={(e) => setUserName(e.target.value)} placeholder="login" />
+        </div>
       </div>
       <Link>Resturants</Link>
       <div className=" flex flex-wrap">
