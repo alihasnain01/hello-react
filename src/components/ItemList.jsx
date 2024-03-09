@@ -1,4 +1,12 @@
+import { useDispatch } from "react-redux"
+import { addToCart } from "../utils/CartSlice"
+
 const ItemList = ({ items }) => {
+
+    const dispatch = useDispatch()
+    const handleAddToCart = (item) => {
+        dispatch(addToCart(item))
+    }
     return (
         <div>
             {items.map((item) => (
@@ -12,7 +20,7 @@ const ItemList = ({ items }) => {
                     </div>
                     <div className="">
                         <div className="absolute">
-                            <button className="p-2 mx-3 rounded-lg bg-white shadow-lg">Add +</button>
+                            <button className="p-2 mx-3 rounded-lg bg-white shadow-lg" onClick={() => { handleAddToCart(item) }}>Add +</button>
                         </div>
                         <img className="w-40 rounded-sm" src={"https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/" + item.card.info.imageId} alt="" />
                     </div>

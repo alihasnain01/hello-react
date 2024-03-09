@@ -8,6 +8,9 @@ import Error from "./components/Error";
 import ResturantMenu from "./components/ResturantMenu";
 import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import UserContext from "./utils/UserContext";
+import { Provider } from "react-redux";
+import AppStore from "./utils/AppStore";
+import Cart from "./components/Cart";
 
 // ceating HTML element using React const parent = React.createElement('div', {
 // id: "parent" }, [React.createElement('div', { id: "child1" }, [
@@ -24,12 +27,14 @@ import UserContext from "./utils/UserContext";
 const AppLayout = () => {
   const [userName, setUserName] = useState("Ali");
   return (
-    <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
-      <div className="app">
-        <Header />
-        <Outlet />
-      </div>
-    </UserContext.Provider>
+    <Provider store={AppStore}>
+      <UserContext.Provider value={{ loggedInUser: userName, setUserName }}>
+        <div className="app">
+          <Header />
+          <Outlet />
+        </div>
+      </UserContext.Provider>
+    </Provider>
   );
 };
 
@@ -54,6 +59,10 @@ const routes = createBrowserRouter([
       {
         path: "/resturants/:resId",
         element: <ResturantMenu />,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
       },
     ],
   },
